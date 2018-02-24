@@ -71,22 +71,27 @@ func (t *tree) treeSearchBreadth() {
 }
 
 func (t *tree) beginDFS() {
+	visited := new([]tree)
 	if t == nil {
 		return
 	}
 	fmt.Println(t.val)
-	t.treeSearchDepth()
+	t.treeSearchDepth(visited)
 }
 
-func (t *tree) treeSearchDepth() {
+func (t *tree) treeSearchDepth(visited *[]tree) {
+	// TODO(sfreids3) figure out how to get length of visited slice
+	l := make([]tree, 10)
+	copy(l, *visited)
+	fmt.Println(l)
 	if t.left != nil {
-		t.left.treeSearchDepth()
+		t.left.treeSearchDepth(&l)
 	} else {
 		fmt.Println(t.val)
 		return
 	}
 	if t.right != nil {
-		t.right.treeSearchDepth()
+		t.right.treeSearchDepth(&l)
 	} else {
 		fmt.Println(t.val)
 	}
