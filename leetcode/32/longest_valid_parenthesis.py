@@ -47,17 +47,28 @@ class Solution:
 
         iterate through, add all "(" to stack
 
+        stack = (
 
         """
 
         stack = []
+        temp = 0
         length = 0
 
         for i in range(len(s)):
             if s[i] == "(":
-                stack.append(i)
-            elif len(stack) > 0:
-                length = length + i - stack.pop() + 1
+                stack.append(s[i])
+            elif stack:
+                if stack.pop() == "(":
+                    temp += 2
+                else:
+                    length = max(temp, length)
+                    temp = 0
+            else:
+                length = max(temp, length)
+                temp = 0
+
+        length = max(length, temp)
 
         return length
 
@@ -68,4 +79,7 @@ class Test:
         solution = Solution()
         assert solution.longest_valid_parenthesis("(()") == 2
         assert solution.longest_valid_parenthesis(")((())") == 4
-        assert solution.longest_valid_parenthesis(")()())") == 4 # TODO: this fails -- need to take into account ()() case
+        assert solution.longest_valid_parenthesis(")()())") == 4
+        assert solution.longest_valid_parenthesis("()(())") == 6
+        assert solution.longest_valid_parenthesis("())()()") == 4
+        assert solution.longest_valid_parenthesis("()(()") == 2
