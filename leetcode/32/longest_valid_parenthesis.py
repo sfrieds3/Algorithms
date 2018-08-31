@@ -18,57 +18,31 @@ Example 3:
 Input: ")((())"
 Output: 4
 Explanation: The longest valid parenthesis sybstring is "(())"
+
+example:
+    stack = (
+    stack = ((
+    stack = (()
+        -> stack = 2(
+    iter through stack, add up consecutive numbers
 """
 
 
 class Solution:
     def longest_valid_parenthesis(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
-        """
-        algorithm:
-        1) iterate until first "("
-        2) if next == "(" add to left parens list, else add to right parens list
-        3) iterate through remaining
-        4)
-
-        Input: ")((())"
-        Output: 4
-        Explanation: The longest valid parenthesis sybstring is "(())"
-
-        left: [1,2,3,]
-        right: [0,4,5]
-
-        beg: 2
-        end: 5
-        answer: (5 - 2 + 1) = 4
-
-        iterate through, add all "(" to stack
-
-        stack = (
-
-        """
-
-        stack = []
-        temp = 0
+        stack = [-1]
         length = 0
 
         for i in range(len(s)):
             if s[i] == "(":
-                stack.append(s[i])
-            elif stack:
-                if stack.pop() == "(":
-                    temp += 2
-                else:
-                    length = max(temp, length)
-                    temp = 0
+                stack.append(i)
             else:
-                length = max(temp, length)
-                temp = 0
+                stack.pop()
 
-        length = max(length, temp)
+                if stack:
+                    length = max(length, i - stack[len(stack) - 1])
+                else:
+                    stack.append(i)
 
         return length
 
@@ -82,4 +56,4 @@ class Test:
         assert solution.longest_valid_parenthesis(")()())") == 4
         assert solution.longest_valid_parenthesis("()(())") == 6
         assert solution.longest_valid_parenthesis("())()()") == 4
-        assert solution.longest_valid_parenthesis("()(()") == 2
+        assert solution.longest_valid_parenthesis("()(()") == 2 # need to account for this -- returns 4
