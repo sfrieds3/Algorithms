@@ -14,5 +14,5 @@ end
 
 if __FILE__ == $0
   p = Pascal.new
-  p.pascal(6, 4)
+  puts(p.pascal(6, 4))
 end

@@ -26,5 +26,8 @@ def mergesort(arr: []):
 
 
 if __name__ == "__main__":
-    test_array =[0, 5, 6, 2, 7, 1]
+    test_array = [0, 5, 6, 2, 7, 1]
     print(mergesort(test_array))
+
+    test_array2 = [1000, 20, 55, 67, 23, 89]
+    print(mergesort(test_array2))
