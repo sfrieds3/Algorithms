@@ -16,15 +16,35 @@ class ListNode:
 
 class Solution:
     def swapPairs(head: ListNode) -> ListNode:
+        prevNode: ListNode = None
+        nextNode: ListNode = head
 
+        if head is None:
+            return head
+        if head.next is None:
+            return head
 
+        tmp: ListNode = head.next
+        newHead: ListNode = head.next
 
+        while nextNode is not None:
+            tmp = head.next
+            nextNode = tmp.next
+            tmp.next = head
+            head.next = tmp
+            try:
+                prevNode.next = tmp
+            except:
+                pass
+            prevNode = head
+            prevNode.next = None
+            head = nextNode
 
-        return head
+        return newHead
 
 
 class Test:
-    def getNode() -> ListNode:
+    def getFourNode() -> ListNode:
         firstNode: ListNode = ListNode(1)
         secondNode: ListNode = ListNode(2)
         thirdNode: ListNode = ListNode(3)
@@ -36,6 +56,16 @@ class Test:
 
         return firstNode
 
+    def getThreeNode() -> ListNode:
+        firstNode: ListNode = ListNode(1)
+        secondNode: ListNode = ListNode(2)
+        thirdNode: ListNode = ListNode(3)
+
+        firstNode.next = secondNode
+        secondNode.next = thirdNode
+
+        return firstNode
+
     def toList(head: ListNode) -> list:
         l: list = []
 
@@ -43,10 +73,13 @@ class Test:
             l.append(head.val)
             head = head.next
 
+        print(l)
+
         return l
 
     def testSwapPairs():
-        assert Test.toList(Solution.swapPairs(Test.getNode())) == [2, 1, 4, 3]
+        assert Test.toList(Solution.swapPairs(Test.getFourNode())) == [2, 1, 4, 3]
+        assert Test.toList(Solution.swapPairs(Test.getThreeNode())) == [2, 1, 4, 3]
 
 
 if __name__ == "__main__":
