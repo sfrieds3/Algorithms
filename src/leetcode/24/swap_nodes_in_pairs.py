@@ -16,7 +16,7 @@ class ListNode:
 
 
 class Solution:
-    def swapPairs(head: ListNode) -> ListNode:
+    def swapPairs(self, head: ListNode) -> ListNode:
         newHead: ListNode
         tmp: ListNode
 
@@ -81,8 +81,10 @@ class Test:
         return l
 
     def testSwapPairs():
-        assert Test.toList(Solution.swapPairs(Test.getFourNode())) == [2, 1, 4, 3]
-        assert Test.toList(Solution.swapPairs(Test.getThreeNode())) == [2, 1, 3]
+        solution: Solution = Solution()
+
+        assert Test.toList(solution.swapPairs(Test.getFourNode())) == [2, 1, 4, 3]
+        assert Test.toList(solution.swapPairs(Test.getThreeNode())) == [2, 1, 3]
 
 
 if __name__ == "__main__":
