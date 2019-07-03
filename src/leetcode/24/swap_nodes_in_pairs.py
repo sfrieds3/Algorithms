@@ -17,6 +17,8 @@ class ListNode:
 
 class Solution:
     def swapPairs(head: ListNode) -> ListNode:
+        newHead: ListNode
+        tmp: ListNode
 
         # catch edge cases
         if head is None:
@@ -40,21 +42,6 @@ class Solution:
             prevLast.next = tmp
             prevLast = head
             head = head.next
-
-        # tmp: ListNode = head.next
-
-        # while nextNode is not None:
-        #     tmp = head.next
-        #     nextNode = tmp.next
-        #     tmp.next = head
-        #     head.next = tmp
-        #     try:
-        #         prevNode.next = tmp
-        #     except:
-        #         pass
-        #     prevNode = head
-        #     prevNode.next = None
-        #     head = nextNode
 
         return newHead
 
