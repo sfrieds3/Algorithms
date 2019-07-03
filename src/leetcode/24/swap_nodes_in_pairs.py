@@ -17,29 +17,44 @@ class ListNode:
 
 class Solution:
     def swapPairs(head: ListNode) -> ListNode:
-        prevNode: ListNode = None
-        nextNode: ListNode = head
 
+        # catch edge cases
         if head is None:
             return head
         if head.next is None:
             return head
 
-        tmp: ListNode = head.next
-        newHead: ListNode = head.next
+        newHead = head.next
 
-        while nextNode is not None:
+        # switch the first two
+        tmp = head.next
+        head.next = head.next.next
+        tmp.next = head
+        prevLast = head
+        head = head.next
+
+        while head is not None and head.next is not None:
             tmp = head.next
-            nextNode = tmp.next
+            head.next = head.next.next
             tmp.next = head
-            head.next = tmp
-            try:
-                prevNode.next = tmp
-            except:
-                pass
-            prevNode = head
-            prevNode.next = None
-            head = nextNode
+            prevLast.next = tmp
+            prevLast = head
+            head = head.next
+
+        # tmp: ListNode = head.next
+
+        # while nextNode is not None:
+        #     tmp = head.next
+        #     nextNode = tmp.next
+        #     tmp.next = head
+        #     head.next = tmp
+        #     try:
+        #         prevNode.next = tmp
+        #     except:
+        #         pass
+        #     prevNode = head
+        #     prevNode.next = None
+        #     head = nextNode
 
         return newHead
 
@@ -80,7 +95,7 @@ class Test:
 
     def testSwapPairs():
         assert Test.toList(Solution.swapPairs(Test.getFourNode())) == [2, 1, 4, 3]
-        assert Test.toList(Solution.swapPairs(Test.getThreeNode())) == [2, 1, 4, 3]
+        assert Test.toList(Solution.swapPairs(Test.getThreeNode())) == [2, 1, 3]
 
 
 if __name__ == "__main__":
