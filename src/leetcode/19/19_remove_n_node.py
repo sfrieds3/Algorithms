@@ -13,30 +13,23 @@ class ListNode:
 
 class Solution:
     def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
-        tmpIndex: int = 0
+        fast: ListNode = head
+        slow: ListNode = head
 
-        storedHead = head
+        for _ in range(0, n):
+            fast = fast.next
 
-        while head != None:
-            tmpIndex = tmpIndex + 1
-            head = head.next
-
-        tmp: ListNode = storedHead
-
-        tmpIndex = tmpIndex - n
-
-        currIndex: int = 0
-
-        while currIndex < tmpIndex - 1:
-            currIndex = currIndex + 1
-            tmp = tmp.next
-
-        if tmpIndex == 0:
-            storedHead = storedHead.next
+        if fast == None:
+            head = slow.next
         else:
-            tmp.next = tmp.next.next
+            while fast.next != None:
+                slow = slow.next
+                fast = fast.next
 
-        return storedHead
+            slow.next = slow.next.next
+
+        return head
+
 
 class Test:
     def createListNode() -> ListNode:
@@ -53,6 +46,18 @@ class Test:
 
         return firstNode
 
+    def createSingleListNode() -> ListNode:
+        firstNode: ListNode = ListNode(1)
+
+        return firstNode
+
+    def createTwoListNode() -> ListNode:
+        firstNode: ListNode = ListNode(1)
+        secondNode: ListNode = ListNode(2)
+
+        firstNode.next = secondNode
+
+        return firstNode
 
     def toList(head: ListNode) -> ListNode:
         res: list = []
@@ -65,10 +70,14 @@ class Test:
 
         return res
 
-
     def testRemoveNthFromEnd():
         solution: Solution = Solution()
-        assert(Test.toList(solution.removeNthFromEnd(Test.createListNode(), 2)) == [1, 2, 3, 5])
+        assert(Test.toList(solution.removeNthFromEnd(
+            Test.createListNode(), 2)) == [1, 2, 3, 5])
+        assert(Test.toList(solution.removeNthFromEnd(
+            Test.createSingleListNode(), 1)) == [])
+        assert(Test.toList(solution.removeNthFromEnd(
+            Test.createTwoListNode(), 2)) == [2])
 
 
 if __name__ == "__main__":
