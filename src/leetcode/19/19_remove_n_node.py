@@ -13,23 +13,30 @@ class ListNode:
 
 class Solution:
     def removeNthFromEnd(self, head: ListNode, n: int) -> ListNode:
-        l: list = []
-        length: int = 0
+        tmpIndex: int = 0
 
-        storedHead: ListNode = head
+        storedHead = head
 
         while head != None:
-            length += 1
-            l.append(head)
+            tmpIndex = tmpIndex + 1
             head = head.next
 
-        prev: ListNode = l[length - n - 1]
-        remove: ListNode = l[length - n]
+        tmp: ListNode = storedHead
 
-        prev.next = remove.next
+        tmpIndex = tmpIndex - n
+
+        currIndex: int = 0
+
+        while currIndex < tmpIndex - 1:
+            currIndex = currIndex + 1
+            tmp = tmp.next
+
+        if tmpIndex == 0:
+            storedHead = storedHead.next
+        else:
+            tmp.next = tmp.next.next
 
         return storedHead
-
 
 class Test:
     def createListNode() -> ListNode:
