@@ -44,12 +44,14 @@ class Solution:
         dist_to_target = list_length - target
 
         if test_val < target:
-            print(dist_to_target)
+            print(test_val - target)
         else:
             # test value > target
-            if dist_to_target == list_length:
+            try:
                 if nums[list_mid + 1 + target] == target:
                     result = list_mid + 1
+            except:
+                result = -1
 
         return result
 
