@@ -37,30 +37,38 @@ class Solution:
         test_val: int = nums[list_mid]
         list_length: int = len(nums)
 
-        print(test_val)
-        print(list_length)
-        print(list_mid)
 
-        dist_to_target = list_length - target
-
-        if test_val < target:
-            print(test_val - target)
+        if test_val == target:
+            result = list_mid
         else:
-            # test value > target
             try:
-                if nums[list_mid + 1 + target] == target:
-                    result = list_mid + 1
+                dist_to_target = list_length - (test_val - target)
+                if nums[list_mid + 1 + dist_to_target] == target:
+                    result = list_mid + 1 + dist_to_target
             except:
                 result = -1
 
+            if result == -1:
+                dist_to_target = (target - test_val)
+                print("expected: " + str(target))
+                print(dist_to_target)
+                try:
+                    print(nums[list_mid + dist_to_target])
+                    if nums[list_mid + dist_to_target] == target:
+                        result = list_mid + dist_to_target
+                except:
+                    result = -1
         return result
 
 
 class Test:
     def testSearch():
         solution: Solution = Solution()
-        assert(solution.search([4, 5, 6, 7, 0, 1, 2], 0) == 4)
-        assert(solution.search([4, 5, 6, 7, 0, 1, 2], 3) == -1)
+        solution_list = [4, 5, 6, 7, 0, 1, 2]
+        assert(solution.search(solution_list, 0) == 4)
+        assert(solution.search(solution_list, 3) == -1)
+        assert(solution.search(solution_list, 7) == 3)
+        assert(solution.search(solution_list, 5) == 1)
 
 
 if __name__ == "__main__":
