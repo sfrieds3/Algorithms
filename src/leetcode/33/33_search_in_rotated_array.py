@@ -24,12 +24,6 @@ Output: -1
 
 class Solution:
     def search(self, nums, target: int) -> int:
-        '''
-        known: target, len(list)
-        start at nums[target]:
-            if num > target:
-            if num < target:
-        '''
 
         result: int = -1
 
@@ -50,10 +44,7 @@ class Solution:
 
             if result == -1:
                 dist_to_target = (target - test_val)
-                print("expected: " + str(target))
-                print(dist_to_target)
                 try:
-                    print(nums[list_mid + dist_to_target])
                     if nums[list_mid + dist_to_target] == target:
                         result = list_mid + dist_to_target
                 except:
